@@ -9,7 +9,7 @@ class EvaluacionDesempeno(models.Model):
 
     name = fields.Char(string='Título de la Evaluación', required=True)
     comentarios = fields.Text(string='Comentarios del Evaluador')
-    puntuacion = fields.Integer(string='Puntuación', default=1, required=True)
+    score = fields.Date(string = 'Puntuación', required=True, defult=1, help="Puntuación del 1 al 10", domain = [('score', '>=', 1), ('score', '<=', 10)])
     empleadoAsignado = fields.Many2one('hr.employee', string='Empleado Asignado')
     fechaEvaluacion = fields.Date(string='Fecha de Evaluación')
 
