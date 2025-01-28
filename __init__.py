@@ -1,2 +1,2 @@
-# evaluacion_desempleo/__init__.py
+# evaluacion_desempeno/__init__.py
 from . import models
