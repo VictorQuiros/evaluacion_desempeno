@@ -10,8 +10,8 @@ class EvaluacionDesempeno(models.Model):
     name = fields.Char(string='Título de la Evaluación', required=True)
     comentarios = fields.Text(string='Comentarios del Evaluador')
     puntuacion = fields.Integer(string='Puntuación', default=1, required=True)
-    assigned_to = fields.Many2one('hr.employee', string='Empleado Asignado')
-    evaluation_date = fields.Date(string='Fecha de Evaluación')
+    empleadoAsignado = fields.Many2one('hr.employee', string='Empleado Asignado')
+    fechaEvaluacion = fields.Date(string='Fecha de Evaluación')
 
     state = fields.Selection([
         ('pending', 'Pendiente'),
