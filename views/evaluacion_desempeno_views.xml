@@ -1,99 +1,105 @@
 <odoo>
-    <data>
 
-        <!-- Vista Kanban -->
-        <record id="view_evaluacion_desempeno_kanban" model="ir.ui.view">
-            <field name="name">evaluacion.desempeno.kanban</field>
-            <field name="model">gestion.desempeno</field>
-            <field name="arch" type="xml">
-                <kanban>
-                    <field name="name"/>
-                    <field name="assigned_to"/>
-                    <field name="state"/>
-                    <field name="evaluation_date"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global_click">
-                                <strong><field name="name"/></strong>
-                                <div><field name="assigned_to" widget="many2one"/></div>
-                                <div><field name="evaluation_date" widget="date"/></div>
-                                <div>
-                                    <span t-if="record.state.raw_value == 'pending'">Pendiente</span>
-                                    <span t-if="record.state.raw_value == 'in_progress'">En Proceso</span>
-                                    <span t-if="record.state.raw_value == 'completed'">Finalizado</span>
-                                </div>
+    <record id="view_evaluacion_desempeno_form" model="ir.ui.view">
+        <field name="name">evaluacion.desempeno.form</field>
+        <field name="model">evaluacion.desempeno</field>
+        <field name="arch" type="xml">
+            <form string="Evaluación de Desempeño">
+                <header>
+                    <button name="iniciar_evaluacion" string="Iniciar" type="object" states="draft" class="oe_highlight"/>
+                    <button name="finalizar_evaluacion" string="Finalizar" type="object" states="in_progress" class="oe_highlight"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,done"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="assigned_to"/>
+                        <field name="evaluation_date"/>
+                        <field name="score"/>
+                    </group>
+                    <group>
+                        <field name="description" widget="text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_evaluacion_desempeno_kanban" model="ir.ui.view">
+        <field name="name">evaluacion.desempeno.kanban</field>
+        <field name="model">evaluacion.desempeno</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="assigned_to"/>
+                <field name="evaluation_date"/>
+                <field name="score"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record evaluacion_desempeno_kanban">
+                            <div>
+                                <strong><span t-esc="record.name.value"/></strong>
                             </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
+                            <div>
+                                Estado: <span t-esc="record.state.value"/>
+                            </div>
+                            <div>
+                                Puntuación: <span t-esc="record.score.value"/>
+                            </div>
+                            <div>
+                                Empleado: <span t-esc="record.assigned_to.value or 'No Asignado'"/>
+                            </div>
+                            <div>
+                                Fecha: <span t-esc="record.evaluation_date.value or 'Sin Fecha'"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
 
-        <!-- Vista Formulario -->
-        <record id="view_evaluacion_desempeno_form" model="ir.ui.view">
-            <field name="name">evaluacion.desempeno.form</field>
-            <field name="model">gestion.desempeno</field>
-            <field name="arch" type="xml">
-                <form>
-                    <sheet>
-                        <group>
-                            <field name="name" string="Título de la Evaluación"/>
-                            <field name="assigned_to" string="Empleado Asignado"/>
-                            <field name="evaluation_date" string="Fecha de Evaluación"/>
-                            <field name="comentarios" string="Comentarios"/>
-                            <field name="puntuacion" string="Puntuación" required="1"/>
-                            <field name="state" widget="statusbar" statusbar_visible="pending,in_progress,completed"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
 
-        <!-- Vista de Árbol (Lista) -->
-        <record id="view_evaluacion_desempeno_tree" model="ir.ui.view">
-            <field name="name">evaluacion.desempeno.tree</field>
-            <field name="model">gestion.desempeno</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="name"/>
-                    <field name="assigned_to"/>
-                    <field name="evaluation_date"/>
-                    <field name="state"/>
-                </tree>
-            </field>
-        </record>
+    <record id="view_evaluacion_desempeno_tree" model="ir.ui.view">
+        <field name="name">evaluacion.desempeno.tree</field>
+        <field name="model">evaluacion.desempeno</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="assigned_to"/>
+                <field name="evaluation_date"/>
+                <field name="score"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
 
-        <!-- Acción -->
-        <record id="action_evaluacion_desempeno" model="ir.actions.act_window">
-            <field name="name">Evaluaciones de Desempeño</field>
-            <field name="res_model">gestion.desempeno</field>
-            <field name="view_mode">kanban,tree,form</field>
-        </record>
 
-        <!-- Menú -->
-        <menuitem id="menu_evaluacion_desempeno_root" name="Evaluación de Desempeño"/>
-        <menuitem id="menu_evaluacion_desempeno" name="Gestión de Evaluaciones" parent="menu_evaluacion_desempeno_root" action="action_evaluacion_desempeno"/>
+    <record id="action_evaluacion_desempeno" model="ir.actions.act_window">
+        <field name="name">Evaluación de desempeño</field>
+        <field name="res_model">evaluacion.desempeno</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primera evaluación de desempeño
+            </p>
+            <p>
+                Gestiona las evaluaciones de desempeño de los empleados.
+            </p>
+        </field>
+    </record>
 
-        <!-- Accesos de seguridad -->
-        <record id="access_eval_hr" model="ir.model.access">
-            <field name="name">access_eval_hr</field>
-            <field name="model_id" ref="model_gestion_desempeno"/>
-            <field name="group_id" ref="hr.group_hr_manager"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_write" eval="1"/>
-            <field name="perm_create" eval="1"/>
-            <field name="perm_unlink" eval="1"/>
-        </record>
 
-        <record id="access_eval_emp" model="ir.model.access">
-            <field name="name">access_eval_emp</field>
-            <field name="model_id" ref="model_gestion_desempeno"/>
-            <field name="group_id" ref="base.group_user"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-        </record>
+    <menuitem id="menu_evaluacion_desempeno_root"
+        name="Evaluación de Desempeño"
+        web_icon="evaluacion_desempeno,static/description/icon.png"
+        sequence="10"/>
 
-    </data>
+    <menuitem id="menu_evaluacion_desempeno"
+        name="Evaluaciones"
+        parent="menu_evaluacion_desempeno_root"
+        action="action_evaluacion_desempeno"
+        sequence="10"/>
 </odoo>
