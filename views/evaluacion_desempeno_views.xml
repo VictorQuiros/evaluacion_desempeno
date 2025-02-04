@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="view_evaluacion_desempeno_form" model="ir.ui.view">
         <field name="name">evaluacion.desempeno.form</field>
         <field name="model">evaluacion.desempeno</field>
@@ -13,18 +12,17 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="assigned_to"/>
-                        <field name="evaluation_date"/>
+                        <field name="empleadoAsignado"/>
+                        <field name="fechaEvaluacion"/>
                         <field name="score"/>
                     </group>
                     <group>
-                        <field name="description" widget="text"/>
+                        <field name="comentarios" widget="text"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-
 
     <record id="view_evaluacion_desempeno_kanban" model="ir.ui.view">
         <field name="name">evaluacion.desempeno.kanban</field>
@@ -32,8 +30,8 @@
         <field name="arch" type="xml">
             <kanban>
                 <field name="name"/>
-                <field name="assigned_to"/>
-                <field name="evaluation_date"/>
+                <field name="empleadoAsignado"/>
+                <field name="fechaEvaluacion"/>
                 <field name="score"/>
                 <field name="state"/>
                 <templates>
@@ -43,16 +41,16 @@
                                 <strong><span t-esc="record.name.value"/></strong>
                             </div>
                             <div>
-                                Estado: <span t-esc="record.state.value"/>
+                                Estado: <span t-esc="record.state.value"></span>
                             </div>
                             <div>
-                                Puntuación: <span t-esc="record.score.value"/>
+                                Puntuación: <span t-esc="record.score.value"></span>
                             </div>
                             <div>
-                                Empleado: <span t-esc="record.assigned_to.value or 'No Asignado'"/>
+                                Empleado: <span t-esc="record.empleadoAsignado.value or 'No Asignado'"></span>
                             </div>
                             <div>
-                                Fecha: <span t-esc="record.evaluation_date.value or 'Sin Fecha'"/>
+                                Fecha: <span t-esc="record.fechaEvaluacion.value or 'Sin Fecha'"></span>
                             </div>
                         </div>
                     </t>
@@ -61,21 +59,19 @@
         </field>
     </record>
 
-
     <record id="view_evaluacion_desempeno_tree" model="ir.ui.view">
         <field name="name">evaluacion.desempeno.tree</field>
         <field name="model">evaluacion.desempeno</field>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
-                <field name="assigned_to"/>
-                <field name="evaluation_date"/>
+                <field name="empleadoAsignado"/>
+                <field name="fechaEvaluacion"/>
                 <field name="score"/>
                 <field name="state"/>
             </tree>
         </field>
     </record>
-
 
     <record id="action_evaluacion_desempeno" model="ir.actions.act_window">
         <field name="name">Evaluación de desempeño</field>
@@ -90,7 +86,6 @@
             </p>
         </field>
     </record>
-
 
     <menuitem id="menu_evaluacion_desempeno_root"
         name="Evaluación de Desempeño"
