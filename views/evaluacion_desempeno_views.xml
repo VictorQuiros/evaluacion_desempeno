@@ -44,7 +44,7 @@
                                 Estado: <span t-esc="record.state.value"></span>
                             </div>
                             <div>
-                                Puntuación: <span t-esc="record.score.value"></span>
+                                Puntuación: <span t-esc="record.score.value"/>
                             </div>
                             <div>
                                 Empleado: <span t-esc="record.empleadoAsignado.value or 'No Asignado'"></span>

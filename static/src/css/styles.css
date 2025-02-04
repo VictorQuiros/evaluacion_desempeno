@@ -1,0 +1,40 @@
+/* evaluacion_desempeno/static/src/css/styles.css */
+/* Estilos específicos solo para la vista Kanban de evaluación de desempeño */
+#evaluacion_desempeno_kanban {
+    display: flex;
+    flex-direction: column;
+    padding: 10px; /* Añadir padding interno */
+    margin: 5px; /* Separación entre tarjetas */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 280px; /* Controlar el ancho máximo */
+    min-height: 140px; /* Controlar la altura mínima */
+}
+
+#evaluacion_desempeno_kanban > div {
+    margin-bottom: 5px; /* Añadir un pequeño margen entre los campos */
+    font-size: 14px; /* Establecer tamaño de fuente para los campos */
+}
+
+#evaluacion_desempeno_kanban > div:first-child {
+    background-color: #3f51b5; /* Azul morado de Odoo */
+    color: white; /* Asegúrate de que el texto sea visible */
+    padding: 10px; /* Añadir más padding para que el fondo ocupe todo el espacio */
+    border-radius: 4px; /* Bordes redondeados para el fondo */
+}
+
+#evaluacion_desempeno_kanban strong {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#evaluacion_desempeno_kanban button {
+    font-size: 12px; /* Ajustar tamaño del texto del botón */
+    padding: 5px 10px; /* Ajustar padding del botón */
+}
+
+#evaluacion_desempeno_kanban span {
+    font-size: 14px;
+}
